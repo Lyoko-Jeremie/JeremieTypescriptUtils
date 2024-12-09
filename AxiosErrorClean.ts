@@ -1,0 +1,48 @@
+import {pick} from "lodash";
+import {AxiosError} from "axios";
+
+export function AxiosErrorCleaner(E: AxiosError) {
+    // console.log('AxiosErrorCleaner', E);
+    return pick(E, [
+        'name', 'message', 'stack', 'code', 'status', 'cause',
+        'aborted',
+        'upgradeOrConnect',
+        'reusedSocket',
+        'host',
+        'protocol',
+        'config.transitional',
+        'config.adapter',
+        'config.url',
+        'config.headers',
+        'config.method',
+        'config.timeout',
+        'config.xsrfCookieName',
+        'config.xsrfHeaderName',
+        'config.maxContentLength',
+        'config.maxBodyLength',
+        'config.data',
+        'request.data',
+        'request.xhr',
+        'request.body',
+        'request.cookies',
+        'request.method',
+        'request.params',
+        'request.query',
+        'request.route',
+        'request.signedCookies',
+        'request.originalUrl',
+        'request.url',
+        'request.status',
+        'request.status',
+        'response.statusText',
+        'response.headers',
+        'response.config.timeout',
+        'response.config.timeout',
+        'response.config.responseType',
+        'response.config.method',
+        'response.config.url',
+        'response.config.data',
+        'response.data',
+        // 'response.baseUrl',
+    ]);
+}

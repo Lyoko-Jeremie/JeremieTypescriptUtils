@@ -1,0 +1,27 @@
+{
+  "name": "JeremieTypescriptUtils",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "keywords": [],
+  "author": "Jeremie",
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.11",
+    "@types/bluebird": "^3.5.42",
+    "@types/lodash": "^4.17.13",
+    "@types/node": "^22.10.1",
+    "@types/numeral": "^2.0.5",
+    "@types/uuid": "^10.0.0",
+    "axios": "^1.7.9",
+    "bluebird": "^3.7.2",
+    "json5": "^2.2.3",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
+    "numeral": "^2.0.6",
+    "rxjs": "^7.8.1",
+    "tsafe": "^1.8.5",
+    "tslog": "^4.9.3",
+    "typescript": "^5.7.2",
+    "uuid": "^11.0.3"
+  }
+}
