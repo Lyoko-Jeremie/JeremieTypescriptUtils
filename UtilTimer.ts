@@ -14,7 +14,12 @@ export class UtilTimer {
 
     // can replace by subclass
     protected timerError: ((E: any) => any) = (E: any) => {
-        this.console.error('UtilTimer timerError: ', E);
+        try {
+            this.console.error('UtilTimer timerError: ', E);
+        } catch (e) {
+            // cannot serialize E
+            console.error(`UtilTimer timerError: [${E?.error || E}]`);
+        }
     };
 
     start() {
