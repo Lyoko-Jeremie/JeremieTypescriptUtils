@@ -27,3 +27,68 @@ export abstract class CustomReadonlyMapHelper<K, V> implements ReadonlyMap<K, V>
     }
 
 }
+
+// ================ Example ================
+
+class A extends CustomReadonlyMapHelper<string, number> {
+    data: { k: string, v: number }[] = [];
+
+    entries(): ReturnType<ReadonlyMap<string, number>["entries"]> {
+        return this.data.entries().map((n) => [n[1].k, n[1].v]);
+    }
+
+    get(key: string): number | undefined {
+        return this.data.find(({k}) => k === key)?.v;
+    }
+
+    has(key: string): boolean {
+        return !!this.data.find(({k}) => k === key);
+    }
+
+    get size(): number {
+        return this.data.length;
+    }
+
+}
+
+class B extends CustomReadonlyMapHelper<string, number> {
+    data: Set<{ k: string, v: number }> = new Set();
+
+    entries(): ReturnType<ReadonlyMap<string, number>["entries"]> {
+        return this.data.entries().map((n) => [n[1].k, n[1].v]);
+    }
+
+    get(key: string): number | undefined {
+        return this.data.values().find(({k}) => k === key)?.v;
+    }
+
+    has(key: string): boolean {
+        return !!this.data.values().find(({k}) => k === key);
+    }
+
+    get size(): number {
+        return this.data.size;
+    }
+
+}
+
+class C extends CustomReadonlyMapHelper<string, number> {
+    data: Map<string, { k: string, v: number }> = new Map();
+
+    entries(): ReturnType<ReadonlyMap<string, number>["entries"]> {
+        return this.data.entries().map((n) => [n[1].k, n[1].v]);
+    }
+
+    get(key: string): number | undefined {
+        return this.data.get(key)?.v;
+    }
+
+    has(key: string): boolean {
+        return this.data.has(key);
+    }
+
+    get size(): number {
+        return this.data.size;
+    }
+
+}
