@@ -1,5 +1,3 @@
-import {CustomIterableIterator} from "./CustomIterableIterator";
-
 export abstract class CustomReadonlyMapHelper<K, V> implements ReadonlyMap<K, V> {
 
     abstract get size(): number;
@@ -8,42 +6,24 @@ export abstract class CustomReadonlyMapHelper<K, V> implements ReadonlyMap<K, V>
 
     abstract has(key: K): boolean;
 
-    abstract entries(): IterableIterator<[K, V]>;
+    abstract entries(): ReturnType<ReadonlyMap<K, V>['entries']>;
 
-    [Symbol.iterator](): IterableIterator<[K, V]> {
+    [Symbol.iterator]() {
         return this.entries();
     }
 
     forEach(callback: (value: V, key: K, map: ReadonlyMap<K, V>) => void, thisArg?: any): void {
         for (const nn of this.entries()) {
-            callback(this.get(nn[0])!, nn[0], this);
+            callback(nn[1], nn[0], this);
         }
     }
 
-    keys(): IterableIterator<K> {
-        return new CustomIterableIterator<K, typeof this, [K, V][]>(
-            this,
-            (index, p, ito) => {
-                return {
-                    done: index >= this.size,
-                    value: ito.cache[index]?.[0],
-                };
-            },
-            Array.from(this.entries()),
-        );
+    keys(): ReturnType<ReadonlyMap<K, V>['keys']> {
+        return this.entries().map(T => T[0]);
     }
 
-    values(): IterableIterator<V> {
-        return new CustomIterableIterator<V, typeof this, [K, V][]>(
-            this,
-            (index, p, ito) => {
-                return {
-                    done: index >= this.size,
-                    value: ito.cache[index]?.[1],
-                };
-            },
-            Array.from(this.entries()),
-        );
+    values(): ReturnType<ReadonlyMap<K, V>['values']> {
+        return this.entries().map(T => T[1]);
     }
 
 }
