@@ -35,3 +35,19 @@ export function convertBigIntToString<T>(obj: T): T {
 // const convertedObj = convertBigIntToString(obj);
 // const jsonString = JSON.stringify(convertedObj);
 // console.log(jsonString); // {"id":"1","name":"example","value":"123"}
+
+export type ConvertStringToBigintSafeReturnType = { ok: false, b: string | number } | { ok: true, b: bigint };
+
+export function convertStringToBigintSafe(s: string | number): ConvertStringToBigintSafeReturnType {
+    try {
+        return {
+            ok: true,
+            b: BigInt(s),
+        };
+    } catch (e) {
+        return {
+            ok: false,
+            b: s,
+        };
+    }
+}
