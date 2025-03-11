@@ -38,7 +38,7 @@ export function convertBigIntToString<T>(obj: T): T {
 
 export type ConvertStringToBigintSafeReturnType = { ok: false, b: string | number } | { ok: true, b: bigint };
 
-export function convertStringToBigintSafe(s: string | number): ConvertStringToBigintSafeReturnType {
+export function convertStringToBigintSafe(s: string | number | bigint): ConvertStringToBigintSafeReturnType {
     try {
         return {
             ok: true,
@@ -47,7 +47,8 @@ export function convertStringToBigintSafe(s: string | number): ConvertStringToBi
     } catch (e) {
         return {
             ok: false,
-            b: s,
+            // maybe a NaN or Infinity
+            b: s as string | number,
         };
     }
 }
